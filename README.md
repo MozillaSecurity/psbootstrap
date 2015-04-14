@@ -2,10 +2,10 @@
 psbootstrap assists in creating files needed to bootstrap a Windows machine for Mozilla fuzz-testing in EC2.
 
 ## Steps to make the script work as a EC2 user-data file:
-1. Uncomment the first <powershell> line and the last </powershell> line.
-2. Add in your private and public key sets. Look for the strings "<public key>" and "<private key>".
+1. Uncomment the first &lt;powershell&gt; line and the last &lt;/powershell&gt; line.
+2. Add in your private and public key sets. Look for the strings "&lt;public key>" and "&lt;private key&gt;".
    These keys are used for accessing the following Mercurial fuzzing repository in step 3, and are *not* AWS access keys.
-3. Add the location to a Mercurial fuzzing repository for cloning. Look for "<repository location>".
+3. Add the location to a Mercurial fuzzing repository for cloning. Look for "&lt;repository location&gt;".
 
 ## Changelog (quick overview):
 * v0.2 (20150413) - First working release. Whole bootstrapping process takes about 1.5 hours, then fuzzing automatically commences.
