@@ -8,5 +8,5 @@ psbootstrap assists in creating files needed to bootstrap a Windows machine for 
 3. Add the location to a Mercurial fuzzing repository for cloning. Look for "<repository location>".
 
 ## Changelog (quick overview):
-v0.2 (20150413) - First working release. Whole bootstrapping process takes about 1.5 hours, then fuzzing automatically commences.
-v0.1 (20150319) - Initial release. Rudimentary support of downloading and installing prerequisites, such as Visual Studio.
+* v0.2 (20150413) - First working release. Whole bootstrapping process takes about 1.5 hours, then fuzzing automatically commences.
+* v0.1 (20150319) - Initial release. Rudimentary support of downloading and installing prerequisites, such as Visual Studio.
