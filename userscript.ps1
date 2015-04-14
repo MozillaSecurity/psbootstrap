@@ -1,8 +1,5 @@
-# Script version 0.1 (20150319)
-# Remember to first convert to DOS line endings! (CRLF)
-# from http://stackoverflow.com/a/14155400 but avoid running in cygwin/git bash
-#   perl -pi -e 's/\r\n|\n|\r/\r\n/g' file-to-convert  # Convert to DOS
-#   perl -pi -e 's/\r\n|\n|\r/\n/g'   file-to-convert  # Convert back to UNIX
+#<powershell>
+# Script version 0.2
 
 # Allow use of Write-Verbose
 [CmdletBinding()]
@@ -11,23 +8,27 @@ Param()
 # Only tested with Powershell V4
 #requires -version 4.0
 Set-StrictMode -Version Latest  # Helps to catch errors
-Set-ExecutionPolicy -Force RemoteSigned  # Allow local scripts
 
 # Directories
-$DOWNLOADS = $HOME + "\Downloads"
-$SSH_DIR = $HOME + "\.ssh"
+$MY_HOME = "C:\Users\Administrator"
+$DOWNLOADS = "$MY_HOME\Downloads"
+$SSH_DIR = "$MY_HOME\.ssh"
 $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
-$TREES = "$HOME\trees"
+$TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
 # Versions
 $MOZILLABUILD_VERSION = "1.11.0"
 $NOTEPADPP_MAJOR_VER = "6"
-$NOTEPADPP_VERSION = $NOTEPADPP_MAJOR_VER + ".7.5"
+$NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.7.5"
 $FXDEV_ARCH = "64"
-$FXDEV_VERSION = "38.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
+$FXDEV_VERSION = "39.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
 
 # Programs
+$FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
+$MOZ_FTP = "https://ftp.mozilla.org/pub/mozilla.org"
+$FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/04/2015-04-13-00-40-06-mozilla-aurora/$FXDEV_FILENAME"
+$FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\hg\hg.exe"
@@ -80,8 +81,7 @@ New-Item "$DOWNLOADS\AdminDeployment.xml" -type file -value '<?xml version="1.0"
     </SelectableItemCustomizations>
 
 </AdminDeploymentCustomizations>' | out-null
-& "$DOWNLOADS\vs_community.exe" /Passive /NoRestart /AdminFile "$DOWNLOADS\AdminDeployment.xml"
-Write-Output "" | out-null  # Ensures the previous command is finished
+& "$DOWNLOADS\vs_community.exe" /Passive /NoRestart /AdminFile "$DOWNLOADS\AdminDeployment.xml" | Write-Output
 
 # MozillaBuild
 $MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
@@ -96,14 +96,79 @@ DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
 ExtractArchive $NOTEPADPP_FILE "$DOWNLOADS\npp-$NOTEPADPP_VERSION"
 
 # Firefox Developer Edition (Aurora)
-$FXDEV_FTP = "https://ftp.mozilla.org/pub/mozilla.org/firefox/nightly/2015-03-18-00-40-12-mozilla-aurora/firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
-$FXDEV_FILE = $DOWNLOADS + "\firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
-DownloadBinary $FXDEV_FTP $FXDEV_FILE
-Write-Verbose "Installing $FXDEV_FILE ..."
-& $FXDEV_FILE -ms | out-null
-Write-Verbose "Finished installing $FXDEV_FILE ."
+DownloadBinary $FXDEV_FTP $FXDEV_FILE_WITH_DIR
+Write-Verbose "Installing $FXDEV_FILE_WITH_DIR ..."
+& $FXDEV_FILE_WITH_DIR -ms | out-null
+Write-Verbose "Finished installing $FXDEV_FILE_WITH_DIR ."
 
 # mozilla-central bundle
 $MCBUNDLE_FTP = "http://ftp.mozilla.org/pub/mozilla.org/firefox/bundles/mozilla-central.hg"
-$MCBUNDLE_FILE = $DOWNLOADS + "\mozilla-central.hg"
+$MCBUNDLE_FILE = "$DOWNLOADS\mozilla-central.hg"
 DownloadBinary $MCBUNDLE_FTP $MCBUNDLE_FILE
+
+Write-Verbose "Setting up ssh configurations..."
+New-Item $SSH_DIR -type directory | out-null
+New-Item "$SSH_DIR\id_dsa.pub" -type file -value '<public key>' | out-null
+New-Item "$SSH_DIR\id_dsa" -type file -value '<private key>' | out-null
+New-Item "$SSH_DIR\config" -type file -value 'Host *
+StrictHostKeyChecking no
+
+Host hg.mozilla.org
+User fuzzbots' | out-null
+Write-Verbose "Finished setting up ssh configurations."
+
+Write-Verbose "Setting up configurations..."
+# Windows Registry settings
+Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting' -Name DontShowUI -Value 1 | out-null
+# Mercurial settings
+New-Item "$MY_HOME\.hgrc" -type file -value "[ui]
+merge = internal:merge
+ssh = $MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -C -v
+
+[extensions]
+progress =
+purge =
+rebase =
+
+[hostfingerprints]
+hg.mozilla.org = af:27:b9:34:47:4e:e5:98:01:f6:83:2b:51:c9:aa:d8:df:fb:1a:27" | out-null
+New-Item "$MY_HOME\repoUpdateRunBotPy.sh" -type file -value '#! /bin/bash
+/usr/bin/env python -u ~/fuzzing/util/reposUpdate.py 2>&1 | tee ~/log-reposUpdate.txt
+/usr/bin/env python -u ~/fuzzing/bot.py -b "--random" -t "js" --target-time=25000 2>&1 | tee ~/log-botPy.txt' | out-null
+
+# -encoding utf8 is needed for out-file for the batch file to be run properly. See https://technet.microsoft.com/en-us/library/hh849882.aspx
+cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
+    % { $_ -replace ' --login -i', ' --login -i "%USERPROFILE%\repoUpdateRunBotPy.sh"' } |
+    out-file "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT" -encoding utf8 |
+    out-null
+Write-Verbose "Finished setting up configurations."
+
+Write-Verbose "Cloning fuzzing repository..."
+Measure-Command { & $HG_BINARY --cwd $MY_HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
+    <repository location> fuzzing |
+    Out-Host }
+Write-Verbose "Finished cloning fuzzing repository."
+
+Write-Verbose "Unbundling mozilla-central..."
+New-Item $TREES -type directory | out-null
+& $HG_BINARY --cwd $TREES init mozilla-central | out-null
+New-Item "$MC_REPO\.hg\hgrc" -type file -value '[paths]
+
+default = https://hg.mozilla.org/mozilla-central
+' | out-null
+& $HG_BINARY -R $MC_REPO unbundle "$DOWNLOADS\mozilla-central.hg" | Write-Output
+Write-Verbose "Finished unbundling mozilla-central."
+
+Write-Verbose "Updating mozilla-central..."
+& $HG_BINARY -R $MC_REPO update -C default | Write-Output
+& $HG_BINARY -R $MC_REPO pull | Write-Output
+& $HG_BINARY -R $MC_REPO update -C default | Write-Output
+Write-Verbose "Finished updating mozilla-central."
+
+Write-Verbose "Setting scheduled fuzzing task..."
+& schtasks.exe /create /sc hourly /mo 8 /ru Administrator /tn "jsFuzzing" /tr "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT" | Write-Output
+Write-Verbose "Finished scheduling fuzzing task."
+& schtasks.exe /run /tn "jsFuzzing" | Write-Output
+Write-Verbose "Running scheduled fuzzing task once."
+
+#</powershell>
