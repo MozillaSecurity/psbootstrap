@@ -168,7 +168,7 @@ Write-Verbose "Finished updating mozilla-central."
 Write-Verbose "Setting scheduled fuzzing task..."
 & schtasks.exe /create /sc hourly /mo 8 /ru System /tn "jsFuzzing" /tr "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT" | Write-Output
 Write-Verbose "Finished scheduling fuzzing task."
-& schtasks.exe /run /tn "jsFuzzing" | Write-Output
+& $MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT | Write-Output
 Write-Verbose "Running scheduled fuzzing task once."
 
 #</powershell>
