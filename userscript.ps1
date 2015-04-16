@@ -13,7 +13,6 @@ Set-StrictMode -Version Latest  # Helps to catch errors
 $MY_HOME = "C:\Users\Administrator"
 $DOWNLOADS = "$MY_HOME\Downloads"
 $SSH_DIR = "$MY_HOME\.ssh"
-$MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
@@ -29,7 +28,10 @@ $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
 $MOZ_FTP = "https://ftp.mozilla.org/pub/mozilla.org"
 $FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/04/2015-04-13-00-40-06-mozilla-aurora/$FXDEV_FILENAME"
 $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
+
+# MozillaBuild
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
+$MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\hg\hg.exe"
 
