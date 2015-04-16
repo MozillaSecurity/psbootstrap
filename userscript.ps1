@@ -33,6 +33,7 @@ $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
+$MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\hg\hg.exe"
 
 Function DownloadBinary ($binName, $location) {
@@ -141,7 +142,7 @@ New-Item "$MY_HOME\repoUpdateRunBotPy.sh" -type file -value '#! /bin/bash
 # -encoding utf8 is needed for out-file for the batch file to be run properly. See https://technet.microsoft.com/en-us/library/hh849882.aspx
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
     % { $_ -replace ' --login -i', ' --login -i "%USERPROFILE%\repoUpdateRunBotPy.sh"' } |
-    out-file "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT" -encoding utf8 |
+    out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
     out-null
 Write-Verbose "Finished setting up configurations."
 
@@ -168,9 +169,9 @@ Write-Verbose "Updating mozilla-central..."
 Write-Verbose "Finished updating mozilla-central."
 
 Write-Verbose "Setting scheduled fuzzing task..."
-& schtasks.exe /create /sc hourly /mo 8 /ru System /tn "jsFuzzing" /tr "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT" | Write-Output
+& schtasks.exe /create /sc hourly /mo 8 /ru System /tn "jsFuzzing" /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 Write-Verbose "Finished scheduling fuzzing task."
-& $MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT | Write-Output
+& $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 Write-Verbose "Running scheduled fuzzing task once."
 
 #</powershell>
