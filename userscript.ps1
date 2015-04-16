@@ -139,12 +139,18 @@ New-Item "$MY_HOME\repoUpdateRunBotPy.sh" -type file -value '#! /bin/bash
 /usr/bin/env python -u ~/fuzzing/util/reposUpdate.py 2>&1 | tee ~/log-reposUpdate.txt
 /usr/bin/env python -u ~/fuzzing/bot.py -b "--random" -t "js" --target-time=25000 2>&1 | tee ~/log-botPy.txt' | out-null
 
-# -encoding utf8 is needed for out-file for the batch file to be run properly. See https://technet.microsoft.com/en-us/library/hh849882.aspx
+# Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
+# See https://technet.microsoft.com/en-us/library/hh849882.aspx
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
     % { $_ -replace ' --login -i', ' --login -i "%USERPROFILE%\repoUpdateRunBotPy.sh"' } |
     out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
     out-null
 Write-Verbose "Finished setting up configurations."
+# Step 2: Now convert the file generated in step 1 from Unicode with BOM to Unicode without BOM:
+# Adapted from http://stackoverflow.com/a/5596984
+$Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
+[System.IO.File]::WriteAllLines($MOZILLABUILD_START_SCRIPT_FULL_PATH,
+                                (Get-Content $MOZILLABUILD_START_SCRIPT_FULL_PATH), $Utf8NoBomEncoding)
 
 Write-Verbose "Cloning fuzzing repository..."
 Measure-Command { & $HG_BINARY --cwd $MY_HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
