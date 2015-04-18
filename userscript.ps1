@@ -124,6 +124,16 @@ Write-Verbose "Finished setting up ssh configurations."
 Write-Verbose "Setting up configurations..."
 # Windows Registry settings
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting' -Name DontShowUI -Value 1 | out-null
+# Create a shortcut to ~ in Favorites. Adapted from http://stackoverflow.com/a/9701907
+$WshShell = New-Object -comObject WScript.Shell
+$Shortcut = $WshShell.CreateShortcut("$MY_HOME\Links\Administrator.lnk")
+$Shortcut.TargetPath = "$MY_HOME"
+$Shortcut.Save()
+# Create a shortcut to C:\mozilla-build in Favorites. Adapted from http://stackoverflow.com/a/9701907
+$WshShell2 = New-Object -comObject WScript.Shell
+$Shortcut2 = $WshShell2.CreateShortcut("$MY_HOME\Links\mozilla-build.lnk")
+$Shortcut2.TargetPath = "C:\mozilla-build"
+$Shortcut2.Save()
 # Mercurial settings
 New-Item "$MY_HOME\.hgrc" -type file -value "[ui]
 merge = internal:merge
