@@ -10,10 +10,9 @@ Param()
 Set-StrictMode -Version Latest  # Helps to catch errors
 
 # Directories
-$MY_HOME = "C:\Users\Administrator"
-$DOWNLOADS = "$MY_HOME\Downloads"
-$SSH_DIR = "$MY_HOME\.ssh"
-$TREES = "$MY_HOME\trees"
+$DOWNLOADS = "$HOME\Downloads"
+$SSH_DIR = "$HOME\.ssh"
+$TREES = "$HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
 # Versions
@@ -126,16 +125,16 @@ Write-Verbose "Setting up configurations..."
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting' -Name DontShowUI -Value 1 | out-null
 # Create a shortcut to ~ in Favorites. Adapted from http://stackoverflow.com/a/9701907
 $WshShell = New-Object -comObject WScript.Shell
-$Shortcut = $WshShell.CreateShortcut("$MY_HOME\Links\Administrator.lnk")
-$Shortcut.TargetPath = "$MY_HOME"
+$Shortcut = $WshShell.CreateShortcut("$HOME\Links\Administrator.lnk")
+$Shortcut.TargetPath = "$HOME"
 $Shortcut.Save()
 # Create a shortcut to C:\mozilla-build in Favorites. Adapted from http://stackoverflow.com/a/9701907
 $WshShell2 = New-Object -comObject WScript.Shell
-$Shortcut2 = $WshShell2.CreateShortcut("$MY_HOME\Links\mozilla-build.lnk")
+$Shortcut2 = $WshShell2.CreateShortcut("$HOME\Links\mozilla-build.lnk")
 $Shortcut2.TargetPath = "C:\mozilla-build"
 $Shortcut2.Save()
 # Mercurial settings
-New-Item "$MY_HOME\.hgrc" -type file -value "[ui]
+New-Item "$HOME\.hgrc" -type file -value "[ui]
 merge = internal:merge
 ssh = $MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -C -v
 
@@ -146,7 +145,7 @@ rebase =
 
 [hostfingerprints]
 hg.mozilla.org = af:27:b9:34:47:4e:e5:98:01:f6:83:2b:51:c9:aa:d8:df:fb:1a:27" | out-null
-New-Item "$MY_HOME\runLoopBotPy.sh" -type file -value '#! /bin/bash
+New-Item "$HOME\runLoopBotPy.sh" -type file -value '#! /bin/bash
 /usr/bin/env python -u ~/fuzzing/loopBot.py -b "--random" -t "js" --target-time=28800 2>&1 | tee ~/log-loopBotPy.txt' | out-null
 
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
@@ -163,7 +162,7 @@ $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
                                 (Get-Content $MOZILLABUILD_START_SCRIPT_FULL_PATH), $Utf8NoBomEncoding)
 
 Write-Verbose "Cloning fuzzing repository..."
-Measure-Command { & $HG_BINARY --cwd $MY_HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
+Measure-Command { & $HG_BINARY --cwd $HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
     <repository location> fuzzing |
     Out-Host }
 Write-Verbose "Finished cloning fuzzing repository."
