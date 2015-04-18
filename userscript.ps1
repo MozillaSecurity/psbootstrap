@@ -145,13 +145,11 @@ rebase =
 
 [hostfingerprints]
 hg.mozilla.org = af:27:b9:34:47:4e:e5:98:01:f6:83:2b:51:c9:aa:d8:df:fb:1a:27" | out-null
-New-Item "$HOME\runLoopBotPy.sh" -type file -value '#! /bin/bash
-/usr/bin/env python -u ~/fuzzing/loopBot.py -b "--random" -t "js" --target-time=28800 2>&1 | tee ~/log-loopBotPy.txt' | out-null
-
+# Modifying custom mozilla-build script for running fuzzing.
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
 # See https://technet.microsoft.com/en-us/library/hh849882.aspx
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
-    % { $_ -replace ' --login -i', ' --login -i "%USERPROFILE%\runLoopBotPy.sh"' } |
+    % { $_ -replace ' --login -i', ' --login -c "python -u ~/fuzzing/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
     out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
     out-null
 Write-Verbose "Finished setting up configurations."
@@ -184,6 +182,7 @@ Write-Verbose "Updating mozilla-central..."
 Write-Verbose "Finished updating mozilla-central."
 
 Write-Verbose "Commencing fuzzing."
+# Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 
 #</powershell>
