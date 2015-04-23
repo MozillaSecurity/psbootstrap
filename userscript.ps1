@@ -87,7 +87,7 @@ New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0
     </SelectableItemCustomizations>
 
 </AdminDeploymentCustomizations>' | out-null
-& "$DOWNLOADS\vs_community.exe" /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
+& $VS2013COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
 
 # MozillaBuild
 $MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
