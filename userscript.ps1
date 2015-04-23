@@ -131,6 +131,7 @@ Write-Verbose "Finished setting up ssh configurations."
 
 Write-Verbose "Setting up configurations..."
 # Windows Registry settings
+# Disable the Windows Error Dialog
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting' -Name DontShowUI -Value 1 | out-null
 # Create a shortcut to ~ in Favorites. Adapted from http://stackoverflow.com/a/9701907
 $WshShell = New-Object -comObject WScript.Shell
