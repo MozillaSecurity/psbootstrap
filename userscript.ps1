@@ -101,6 +101,14 @@ $MOZILLABUILD_SETUP = "$DOWNLOADS\MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
 DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
 InstallBinary $MOZILLABUILD_SETUP
 
+# !exploitable 1.6.0 (needs 7-zip to extract, from MozillaBuild)
+$B_EXPLOITABLE_FTP = "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=20988"
+$B_EXPLOITABLE_SETUP_FILENAME = "MSECExtensions_1_6_0"
+$B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
+DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
+ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
+Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" "$env:programw6432\Debugging Tools for Windows (x64)\winext"
+
 # Notepad++ editor
 $NOTEPADPP_FTP = "http://dl.notepad-plus-plus.org/downloads/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.bin.7z"
 $NOTEPADPP_FILE = "$DOWNLOADS\npp.$NOTEPADPP_VERSION.bin.7z"
