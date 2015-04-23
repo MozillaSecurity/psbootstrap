@@ -70,8 +70,9 @@ Function ExtractArchive ($fileName, $dirName) {
 # Microsoft Visual Studio 2013 Community Edition
 $VS2013COMMUNITY_FTP = "http://go.microsoft.com/?linkid=9863608"
 $VS2013COMMUNITY_SETUP = "$DOWNLOADS\vs_community.exe"
+$VS2013COMMUNITY_SETUP_DEPLOYMENT = "$DOWNLOADS\AdminDeployment.xml"
 DownloadBinary $VS2013COMMUNITY_FTP $VS2013COMMUNITY_SETUP
-New-Item "$DOWNLOADS\AdminDeployment.xml" -type file -value '<?xml version="1.0" encoding="utf-8"?>
+New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0" encoding="utf-8"?>
 <AdminDeploymentCustomizations xmlns="http://schemas.microsoft.com/wix/2011/AdminDeployment">
     <BundleCustomizations TargetDir="default" NoWeb="default"/>
 
@@ -86,7 +87,7 @@ New-Item "$DOWNLOADS\AdminDeployment.xml" -type file -value '<?xml version="1.0"
     </SelectableItemCustomizations>
 
 </AdminDeploymentCustomizations>' | out-null
-& "$DOWNLOADS\vs_community.exe" /Passive /NoRestart /AdminFile "$DOWNLOADS\AdminDeployment.xml" | Write-Output
+& "$DOWNLOADS\vs_community.exe" /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
 
 # MozillaBuild
 $MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
