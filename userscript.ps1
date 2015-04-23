@@ -91,7 +91,7 @@ New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0
 
 # Standalone Debugging Tools for Windows as part of Windows 8.1 SDK
 $DEBUGGINGTOOLS_FTP = "http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi"
-$DEBUGGINGTOOLS_SETUP = "$DOWNLOADS\dbg_amd64.msi"
+$DEBUGGINGTOOLS_SETUP = "$DOWNLOADS\Debugging_Tools_for_Windows_(x64).msi"
 DownloadBinary $DEBUGGINGTOOLS_FTP $DEBUGGINGTOOLS_SETUP
 Start-Process "msiexec" "/i $DEBUGGINGTOOLS_SETUP /Passive /NoRestart" -NoNewWindow -Wait
 
