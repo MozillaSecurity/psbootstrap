@@ -63,7 +63,7 @@ Function ExtractArchive ($fileName, $dirName) {
     # .DESCRIPTION
     # Extracts archives using 7-Zip in mozilla-build directory.
     Write-Verbose "Extracting $fileName ..."
-    (C:\mozilla-build\7zip\7z.exe e -y -o"$dirName" $fileName) | out-null
+    (C:\mozilla-build\7zip\7z.exe x -y -o"$dirName" $fileName) | out-null
     Write-Verbose "Finished extracting $fileName ."
 }
 
