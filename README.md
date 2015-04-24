@@ -13,7 +13,7 @@ In order to make the script work as a EC2 user-data file:
 - v0.3 (2015-04-23)
  - Rudimentary 64-bit MozillaBuild script support
  - Stop using Windows Task Scheduler
- - Add debugging support
+ - Install Debugging Tools for Windows, e.g. cdb.exe and windbg
  - Miscellaneous bug fixes
 - v0.2 (2015-04-13)
  - First working release
