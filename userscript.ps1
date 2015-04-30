@@ -1,6 +1,4 @@
 #<powershell>
-# Script version 0.2
-
 # Allow use of Write-Verbose
 [CmdletBinding()]
 Param()
