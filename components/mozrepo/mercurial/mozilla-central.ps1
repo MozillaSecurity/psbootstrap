@@ -1,3 +1,4 @@
+# PSBOOTSTRAPBEGIN
 # mozilla-central bundle
 $MCBUNDLE_FTP = "http://ftp.mozilla.org/pub/mozilla.org/firefox/bundles/mozilla-central.hg"
 $MCBUNDLE_FILE = "$DOWNLOADS\mozilla-central.hg"
@@ -18,3 +19,4 @@ Write-Verbose "Updating mozilla-central..."
 & $HG_BINARY -R $MC_REPO pull | Write-Output
 & $HG_BINARY -R $MC_REPO update -C default | Write-Output
 Write-Verbose "Finished updating mozilla-central."
+# PSBOOTSTRAPEND

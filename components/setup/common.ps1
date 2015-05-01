@@ -1,3 +1,4 @@
+# PSBOOTSTRAPBEGIN
 Function DownloadBinary ($binName, $location) {
     # .DESCRIPTION
     # Downloads binaries.
@@ -26,3 +27,4 @@ Function ExtractArchive ($fileName, $dirName) {
     (C:\mozilla-build\7zip\7z.exe x -y -o"$dirName" $fileName) | out-null
     Write-Verbose "Finished extracting $fileName ."
 }
+# PSBOOTSTRAPEND

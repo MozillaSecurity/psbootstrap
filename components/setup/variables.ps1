@@ -1,3 +1,4 @@
+# PSBOOTSTRAPBEGIN
 # Directories
 # $MY_HOME is needed because user-data starts up as SYSTEM user which is *not* Administrator.
 $MY_HOME = "C:\Users\Administrator"
@@ -26,3 +27,4 @@ $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\hg\hg.exe"
+# PSBOOTSTRAPEND
