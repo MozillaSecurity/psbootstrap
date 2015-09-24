@@ -16,7 +16,7 @@ $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
 # Versions
-$MOZILLABUILD_VERSION = "1.11.0"
+$MOZILLABUILD_VERSION = "2.0.0"
 $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.8.3"
 $FXDEV_ARCH = "64"
@@ -31,10 +31,12 @@ $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 # MozillaBuild
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
+$MOZILLABUILD_GENERIC_START = "start-shell.bat"
+$MOZILLABUILD_GENERIC_START_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_GENERIC_START"
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
-$HG_BINARY = "$MOZILLABUILD_INSTALLDIR\hg\hg.exe"
+$HG_BINARY = "$MOZILLABUILD_INSTALLDIR\python\Scripts\hg.bat"
 
 Function DownloadBinary ($binName, $location) {
     # .DESCRIPTION
@@ -185,15 +187,17 @@ hg.mozilla.org = af:27:b9:34:47:4e:e5:98:01:f6:83:2b:51:c9:aa:d8:df:fb:1a:27" | 
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
 # See https://technet.microsoft.com/en-us/library/hh849882.aspx
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
-    % { $_ -replace ' --login -i', ' --login -c "python -u ~/fuzzing/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
+    % { $_ -replace 'CALL start-shell.bat', 'CALL fz-start-shell.bat' } |
     out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
+    out-null
+cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_GENERIC_START" |
+    % { $_ -replace ' --login -i', ' --login -c "python -u ~/funfuzz/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
+    out-file $MOZILLABUILD_GENERIC_START_FULL_PATH -encoding utf8 |
     out-null
 Write-Verbose "Finished setting up configurations."
 # Step 2: Now convert the file generated in step 1 from Unicode with BOM to Unicode without BOM:
-# Adapted from http://stackoverflow.com/a/5596984
-$Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
-[System.IO.File]::WriteAllLines($MOZILLABUILD_START_SCRIPT_FULL_PATH,
-                                (Get-Content $MOZILLABUILD_START_SCRIPT_FULL_PATH), $Utf8NoBomEncoding)
+ConvertToUnicodeNoBOM $MOZILLABUILD_START_SCRIPT_FULL_PATH
+ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
 Write-Verbose "Cloning fuzzing repository..."
 Measure-Command { & $HG_BINARY --cwd $MY_HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
