@@ -177,9 +177,7 @@ New-Item "$SSH_DIR\id_dsa.pub" -type file -value '<public key>' | out-null
 New-Item "$SSH_DIR\id_dsa" -type file -value '<private key>' | out-null
 New-Item "$SSH_DIR\config" -type file -value 'Host *
 StrictHostKeyChecking no
-
-Host hg.mozilla.org
-User fuzzbots' | out-null
+' | out-null
 Write-Verbose "Finished setting up ssh configurations."
 # Create a shortcut to C:\mozilla-build in Favorites. Adapted from http://stackoverflow.com/a/9701907
 $WshShell2 = New-Object -comObject WScript.Shell
@@ -214,11 +212,13 @@ Write-Verbose "Finished setting up configurations."
 ConvertToUnicodeNoBOM $MOZILLABUILD_START_SCRIPT_FULL_PATH
 ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
-Write-Verbose "Cloning fuzzing repository..."
-Measure-Command { & $HG_BINARY --cwd $MY_HOME clone -e "$MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -i $SSH_DIR\id_dsa -o stricthostkeychecking=no -C -v" `
-    <repository location> fuzzing |
-    Out-Host }
-Write-Verbose "Finished cloning fuzzing repository."
+Write-Verbose "Cloning lithium repository..."
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/lithium" "$MY_HOME\lithium" | Out-Host
+Write-Verbose "Finished cloning lithium repository."
+Write-Verbose "Cloning funfuzz repository..."
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
+Write-Verbose "Finished cloning funfuzz repository."
+@import(misc-funfuzz/location.ps1)@
 
 Write-Verbose "Unbundling mozilla-central..."
 New-Item $TREES -type directory | out-null
