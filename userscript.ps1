@@ -146,7 +146,7 @@ $B_EXPLOITABLE_SETUP_FILENAME = "MSECExtensions_1_6_0"
 $B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
 DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
 ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
-Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" "$env:programw6432\Debugging Tools for Windows (x64)\winext"
+Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" ([Environment]::GetFolderPath("ProgramFiles") + "\Debugging Tools for Windows (x64)\winext")
 
 # Notepad++ editor
 $NOTEPADPP_FTP = "http://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
