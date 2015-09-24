@@ -38,10 +38,10 @@ $GIT_FILE_WITH_DIR = "$DOWNLOADS\$GIT_FILENAME"
 $GIT_BINARY = [Environment]::GetFolderPath("ProgramFilesX86") + "\Git\bin\git.exe"
 
 # MozillaBuild
-# For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_GENERIC_START = "start-shell.bat"
 $MOZILLABUILD_GENERIC_START_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_GENERIC_START"
+# For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
