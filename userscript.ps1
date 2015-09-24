@@ -1,4 +1,4 @@
-#<powershell>
+<powershell>
 # Allow use of Write-Verbose
 [CmdletBinding()]
 Param()
@@ -239,4 +239,4 @@ Write-Verbose "Commencing fuzzing."
 # Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 
-#</powershell>
+</powershell>
