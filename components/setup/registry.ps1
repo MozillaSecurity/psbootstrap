@@ -1,4 +1,3 @@
-# PSBOOTSTRAPBEGIN
 Write-Verbose "Setting up configurations..."
 # Windows Registry settings
 # Disable the Windows Error Dialog
@@ -13,4 +12,3 @@ New-Item -Path 'HKLM:\Software\Policies\Microsoft\Windows' -Name AppCompat | out
 Set-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\AppCompat' -Name DisableEngine -Value 1 | out-null
 Set-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\AppCompat' -Name DisablePCA -Value 1 | out-null
 & gpupdate /force | out-null
-# PSBOOTSTRAPEND

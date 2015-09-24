@@ -1,4 +1,3 @@
-# PSBOOTSTRAPBEGIN
 # Standalone Debugging Tools for Windows as part of Windows 8.1 SDK
 $DEBUGGINGTOOLS_FTP = "http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi"
 $DEBUGGINGTOOLS_SETUP = "$DOWNLOADS\Debugging_Tools_for_Windows_(x64).msi"
@@ -12,4 +11,3 @@ $B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
 DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
 ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
 Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" "$env:programw6432\Debugging Tools for Windows (x64)\winext"
-# PSBOOTSTRAPEND

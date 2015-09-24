@@ -1,4 +1,3 @@
-# PSBOOTSTRAPBEGIN
 # Microsoft Visual Studio 2013 Community Edition
 $VS2013COMMUNITY_FTP = "http://go.microsoft.com/?linkid=9863608"
 $VS2013COMMUNITY_SETUP = "$DOWNLOADS\vs_community.exe"
@@ -20,4 +19,3 @@ New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0
 
 </AdminDeploymentCustomizations>' | out-null
 & $VS2013COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
-# PSBOOTSTRAPEND

@@ -1,4 +1,3 @@
-# PSBOOTSTRAPBEGIN
 Write-Verbose "Setting up ssh configurations..."
 New-Item $SSH_DIR -type directory | out-null
 New-Item "$SSH_DIR\id_dsa.pub" -type file -value '<public key>' | out-null
@@ -46,4 +45,3 @@ Write-Verbose "Commencing fuzzing."
 # Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 
-# PSBOOTSTRAPEND
