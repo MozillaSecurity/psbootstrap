@@ -65,6 +65,15 @@ Function ExtractArchive ($fileName, $dirName) {
     Write-Verbose "Finished extracting $fileName ."
 }
 
+Function ConvertToUnicodeNoBOM ($fileName) {
+    # .DESCRIPTION
+    # Converts files to Unicode without BOM.
+    # Adapted from http://stackoverflow.com/a/5596984
+    $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
+    [System.IO.File]::WriteAllLines($fileName,
+                                    (Get-Content $fileName), $Utf8NoBomEncoding)
+}
+
 Write-Verbose "Setting up configurations..."
 # Windows Registry settings
 # Disable the Windows Error Dialog
