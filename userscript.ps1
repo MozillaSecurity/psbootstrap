@@ -121,7 +121,7 @@ DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
 InstallBinary $MOZILLABUILD_SETUP
 
 # !exploitable 1.6.0 (needs 7-zip to extract, from MozillaBuild)
-$B_EXPLOITABLE_FTP = "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=20988"
+$B_EXPLOITABLE_FTP = "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=21031"
 $B_EXPLOITABLE_SETUP_FILENAME = "MSECExtensions_1_6_0"
 $B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
 DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
