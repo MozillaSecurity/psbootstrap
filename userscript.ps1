@@ -27,6 +27,15 @@ $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
 $MOZ_FTP = "https://ftp.mozilla.org/pub/mozilla.org"
 $FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/09/2015-09-23-00-40-24-mozilla-aurora/$FXDEV_FILENAME"
 $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
+$GIT_ARCH = "32"
+$GIT_VERSION = "2.5.3"
+$GIT_FILENAME = "Git-$GIT_VERSION-$GIT_ARCH-bit.exe"
+$GIT_FTP = "https://github.com/git-for-windows/git/releases/download/v$GIT_VERSION.windows.1/$GIT_FILENAME"
+$GIT_FILE_WITH_DIR = "$DOWNLOADS\$GIT_FILENAME"
+# Get list of names by running the following in PowerShell:
+#   [Environment+SpecialFolder]::GetNames([Environment+SpecialFolder])
+# From https://msdn.microsoft.com/en-us/library/system.environment.specialfolder.aspx
+$GIT_BINARY = [Environment]::GetFolderPath("ProgramFilesX86") + "\Git\bin\git.exe"
 
 # MozillaBuild
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
@@ -150,6 +159,12 @@ DownloadBinary $FXDEV_FTP $FXDEV_FILE_WITH_DIR
 Write-Verbose "Installing $FXDEV_FILE_WITH_DIR ..."
 & $FXDEV_FILE_WITH_DIR -ms | out-null
 Write-Verbose "Finished installing $FXDEV_FILE_WITH_DIR ."
+
+# Git
+DownloadBinary $GIT_FTP $GIT_FILE_WITH_DIR
+Write-Verbose "Installing $GIT_FILE_WITH_DIR ..."
+& $GIT_FILE_WITH_DIR /SILENT | out-null
+Write-Verbose "Finished installing $GIT_FILE_WITH_DIR ."
 
 # mozilla-central bundle
 $MCBUNDLE_FTP = "http://ftp.mozilla.org/pub/mozilla.org/firefox/bundles/mozilla-central.hg"
