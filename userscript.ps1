@@ -173,8 +173,7 @@ DownloadBinary $MCBUNDLE_FTP $MCBUNDLE_FILE
 
 Write-Verbose "Setting up ssh configurations..."
 New-Item $SSH_DIR -type directory | out-null
-New-Item "$SSH_DIR\id_dsa.pub" -type file -value '<public key>' | out-null
-New-Item "$SSH_DIR\id_dsa" -type file -value '<private key>' | out-null
+@import(keys/github.funfuzz.ps1)@
 New-Item "$SSH_DIR\config" -type file -value 'Host *
 StrictHostKeyChecking no
 ' | out-null
