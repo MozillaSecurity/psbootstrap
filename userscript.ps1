@@ -18,7 +18,7 @@ $MC_REPO = "$TREES\mozilla-central"
 # Versions
 $MOZILLABUILD_VERSION = "1.11.0"
 $NOTEPADPP_MAJOR_VER = "6"
-$NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.7.5"
+$NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.8.3"
 $FXDEV_ARCH = "64"
 $FXDEV_VERSION = "43.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
 
@@ -129,10 +129,10 @@ ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
 Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" "$env:programw6432\Debugging Tools for Windows (x64)\winext"
 
 # Notepad++ editor
-$NOTEPADPP_FTP = "http://dl.notepad-plus-plus.org/downloads/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.bin.7z"
-$NOTEPADPP_FILE = "$DOWNLOADS\npp.$NOTEPADPP_VERSION.bin.7z"
+$NOTEPADPP_FTP = "http://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
+$NOTEPADPP_FILE = "$DOWNLOADS\npp.$NOTEPADPP_VERSION.Installer.exe"
 DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
-ExtractArchive $NOTEPADPP_FILE "$DOWNLOADS\npp-$NOTEPADPP_VERSION"
+& $NOTEPADPP_FILE /S
 
 # Firefox Developer Edition (Aurora)
 DownloadBinary $FXDEV_FTP $FXDEV_FILE_WITH_DIR
