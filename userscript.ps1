@@ -20,12 +20,12 @@ $MOZILLABUILD_VERSION = "1.11.0"
 $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.7.5"
 $FXDEV_ARCH = "64"
-$FXDEV_VERSION = "39.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
+$FXDEV_VERSION = "43.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
 
 # Programs
 $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
 $MOZ_FTP = "https://ftp.mozilla.org/pub/mozilla.org"
-$FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/04/2015-04-13-00-40-06-mozilla-aurora/$FXDEV_FILENAME"
+$FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/09/2015-09-23-00-40-24-mozilla-aurora/$FXDEV_FILENAME"
 $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 
 # MozillaBuild
