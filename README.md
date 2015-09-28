@@ -12,7 +12,7 @@ in the psbootstrap directory.
 In the example above, boto was first installed via the creation of a new virtualenv in ~/trees/boto-awsfuzz/ .
 
 ## Changelog
-- v0.4 (2015-09-28)
+- [v0.4](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.4) (2015-09-28)
   - Now intended to be used with Laniakea
   - MozillaBuild 2.0.0 support added together with Git 2.5.3
   - Switched to GitHub Lithium and funfuzz repositories
