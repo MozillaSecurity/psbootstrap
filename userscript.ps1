@@ -24,8 +24,9 @@ $FXDEV_VERSION = "43.0a2"  # Change the URL in the $FXDEV_FTP variable as well.
 
 # Programs
 $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
-$MOZ_FTP = "https://ftp.mozilla.org/pub/mozilla.org"
-$FXDEV_FTP = "$MOZ_FTP/firefox/nightly/2015/09/2015-09-23-00-40-24-mozilla-aurora/$FXDEV_FILENAME"
+# Consider switching the following to https://github.com/mozilla/mozdownload
+$MOZ_TASKCLUSTER = "https://index.taskcluster.net/v1/task"
+$FXDEV_TASKCLUSTER = "$MOZ_TASKCLUSTER/gecko.v2.mozilla-aurora.latest.firefox.win$FXDEV_ARCH-opt/artifacts/public/build/$FXDEV_FILENAME"
 $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 $GIT_ARCH = "32"
 $GIT_VERSION = "2.6.2"
@@ -155,7 +156,7 @@ DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
 & $NOTEPADPP_FILE /S
 
 # Firefox Developer Edition (Aurora)
-DownloadBinary $FXDEV_FTP $FXDEV_FILE_WITH_DIR
+DownloadBinary $FXDEV_TASKCLUSTER $FXDEV_FILE_WITH_DIR
 Write-Verbose "Installing $FXDEV_FILE_WITH_DIR ..."
 & $FXDEV_FILE_WITH_DIR -ms | out-null
 Write-Verbose "Finished installing $FXDEV_FILE_WITH_DIR ."
