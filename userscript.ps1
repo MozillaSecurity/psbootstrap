@@ -199,7 +199,7 @@ cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
     out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
     out-null
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_GENERIC_START" |
-    % { $_ -replace ' --login -i', ' --login -c "python -u ~/funfuzz/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
+    % { $_ -replace ' --login -i', ' --login -c "pip install --upgrade mercurial boto numpy requests ; python -u ~/funfuzz/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
     out-file $MOZILLABUILD_GENERIC_START_FULL_PATH -encoding utf8 |
     out-null
 Write-Verbose "Finished setting up configurations."
