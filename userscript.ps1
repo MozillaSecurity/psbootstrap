@@ -20,13 +20,11 @@ $MOZILLABUILD_VERSION = "2.0.0"
 $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.9"
 $FXDEV_ARCH = "64"
-$FXDEV_VERSION = "44.0a2"
+$FXDEV_VERSION = "47.0a2"
 
 # Programs
 $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
-# Consider switching the following to https://github.com/mozilla/mozdownload
-$MOZ_TASKCLUSTER = "https://index.taskcluster.net/v1/task"
-$FXDEV_TASKCLUSTER = "$MOZ_TASKCLUSTER/gecko.v2.mozilla-aurora.latest.firefox.win$FXDEV_ARCH-opt/artifacts/public/build/$FXDEV_FILENAME"
+$FXDEV_ARCHIVE = "https://archive.mozilla.org/pub/firefox/nightly/latest-mozilla-aurora/$FXDEV_FILENAME"
 $FXDEV_FILE_WITH_DIR = "$DOWNLOADS\$FXDEV_FILENAME"
 $GIT_ARCH = "32"
 $GIT_VERSION = "2.7.3"
@@ -156,7 +154,7 @@ DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
 & $NOTEPADPP_FILE /S
 
 # Firefox Developer Edition (Aurora)
-DownloadBinary $FXDEV_TASKCLUSTER $FXDEV_FILE_WITH_DIR
+DownloadBinary $FXDEV_ARCHIVE $FXDEV_FILE_WITH_DIR
 Write-Verbose "Installing $FXDEV_FILE_WITH_DIR ..."
 & $FXDEV_FILE_WITH_DIR -ms | out-null
 Write-Verbose "Finished installing $FXDEV_FILE_WITH_DIR ."
