@@ -208,7 +208,7 @@ ConvertToUnicodeNoBOM $MOZILLABUILD_START_SCRIPT_FULL_PATH
 ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
 Write-Verbose "Cloning lithium repository..."
-& $GIT_BINARY clone "https://github.com/MozillaSecurity/lithium" "$MY_HOME\lithium" | Out-Host
+& $GIT_BINARY clone "https://github.com/nth10sd/lithium" "$MY_HOME\lithium" -b nbp-branch --single-branch | Out-Host
 Write-Verbose "Finished cloning lithium repository."
 Write-Verbose "Cloning funfuzz repository..."
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
