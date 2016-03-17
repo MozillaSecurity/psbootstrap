@@ -9,7 +9,33 @@ Run psbootstrap using Laniakea:
 ```
 in the psbootstrap directory.
 
-In the example above, boto was first installed via the creation of a new virtualenv in ~/trees/boto-awsfuzz/ .
+## How to get boto
+
+If you would like to install boto globally, do:
+
+```
+pip install --upgrade boto
+```
+
+then run using system python.
+
+If you would like to install boto in a virtualenv, and not pollute global python do:
+
+```
+virtualenv ~/trees/boto-awsfuzz
+
+~/trees/boto-awsfuzz/bin/pip install --upgrade boto
+```
+
+then run using "~/trees/boto-awsfuzz/bin/python" .
+
+To test if this worked, run "python" or "~/trees/boto-awsfuzz/bin/python" then:
+
+```
+import boto
+```
+
+If there are no errors, then it is working properly.
 
 ## Changelog
 - [v0.4](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.4) (2015-09-28)
