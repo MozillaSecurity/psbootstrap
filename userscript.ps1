@@ -151,7 +151,7 @@ Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" ([Environment
 $NOTEPADPP_FTP = "http://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
 $NOTEPADPP_FILE = "$DOWNLOADS\npp.$NOTEPADPP_VERSION.Installer.exe"
 DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
-& $NOTEPADPP_FILE /S
+InstallBinary $NOTEPADPP_FILE
 
 # Firefox Developer Edition (Aurora)
 DownloadBinary $FXDEV_ARCHIVE $FXDEV_FILE_WITH_DIR
