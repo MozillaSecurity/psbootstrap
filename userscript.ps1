@@ -212,7 +212,7 @@ Write-Verbose "Cloning funfuzz repository..."
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
 Write-Verbose "Finished cloning funfuzz repository."
 Write-Verbose "Cloning FuzzManager repository..."
-& $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager.git" "$MY_HOME\FuzzManager" | Out-Host
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager" "$MY_HOME\FuzzManager" | Out-Host
 Write-Verbose "Finished cloning FuzzManager repository."
 @import(misc-funfuzz/location.ps1)@
 
