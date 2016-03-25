@@ -16,7 +16,7 @@ $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
 # Versions
-$MOZILLABUILD_VERSION = "2.0.0"
+$MOZILLABUILD_VERSION = "2.2.0pre3"
 $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.9"
 $FXDEV_ARCH = "64"
@@ -137,9 +137,14 @@ DownloadBinary $DEBUGGINGTOOLS_FTP $DEBUGGINGTOOLS_SETUP
 Start-Process "msiexec" "/i $DEBUGGINGTOOLS_SETUP /Passive /NoRestart" -NoNewWindow -Wait
 
 # MozillaBuild
-$MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
+#$MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
+$MOZILLABUILD_FTP = "https://people.mozilla.org/~rvandermeulen/MozillaBuildSetup$MOZILLABUILD_VERSION.exe"
 $MOZILLABUILD_SETUP = "$DOWNLOADS\MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
 DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
+InstallBinary $MOZILLABUILD_SETUP
+# Apparently /D=<dir> does not work to change the default install directory.
+& mv C:\mozilla-build-2.2.0pre3 C:\mozilla-build
+# Reinstall MozillaBuild 2.2.0pre3 for MozillaBuild to be able to find some hard-coded paths.
 InstallBinary $MOZILLABUILD_SETUP
 
 # !exploitable 1.6.0 (needs 7-zip to extract, from MozillaBuild)
