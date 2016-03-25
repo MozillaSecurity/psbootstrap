@@ -21,6 +21,8 @@ $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.9"
 $FXDEV_ARCH = "64"
 $FXDEV_VERSION = "47.0a2"
+$LLVM_ARCH = "32"
+$LLVM_VERSION = "3.8.0"
 
 # Programs
 $FXDEV_FILENAME = "firefox-$FXDEV_VERSION.en-US.win$FXDEV_ARCH.installer.exe"
@@ -41,6 +43,7 @@ $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_GENERIC_START = "start-shell.bat"
 $MOZILLABUILD_GENERIC_START_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_GENERIC_START"
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
+# Remember to also tweak the LLVM version.
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
@@ -146,6 +149,12 @@ $B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
 DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
 ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
 Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" ([Environment]::GetFolderPath("ProgramFiles") + "\Debugging Tools for Windows (x64)\winext")
+
+# LLVM
+$LLVM_FTP = "http://llvm.org/releases/$LLVM_VERSION/LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
+$LLVM_FILE = "$DOWNLOADS\LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
+DownloadBinary $LLVM_FTP $LLVM_FILE
+InstallBinary $LLVM_FILE
 
 # Notepad++ editor
 $NOTEPADPP_FTP = "http://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
