@@ -38,6 +38,11 @@ import boto
 If there are no errors, then it is working properly.
 
 ## Changelog
+- [v0.5](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5) (2016-03-26)
+  - Bump MozillaBuild to 2.2.0pre3 and Git to 2.7.3
+  - Add GitHub FuzzManager repository
+  - Switch to archive.mozilla.org from TaskCluster and FTP
+  - Download and install LLVM 3.8.0 32-bit
 - [v0.4](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.4) (2015-09-28)
   - Now intended to be used with Laniakea
   - MozillaBuild 2.0.0 support added together with Git 2.5.3
