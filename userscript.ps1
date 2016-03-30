@@ -16,7 +16,7 @@ $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 
 # Versions
-$MOZILLABUILD_VERSION = "2.0.0"
+$MOZILLABUILD_VERSION = "2.2.0"
 $NOTEPADPP_MAJOR_VER = "6"
 $NOTEPADPP_VERSION = "$NOTEPADPP_MAJOR_VER.9"
 $FXDEV_ARCH = "64"
@@ -137,7 +137,7 @@ DownloadBinary $DEBUGGINGTOOLS_FTP $DEBUGGINGTOOLS_SETUP
 Start-Process "msiexec" "/i $DEBUGGINGTOOLS_SETUP /Passive /NoRestart" -NoNewWindow -Wait
 
 # MozillaBuild
-$MOZILLABUILD_FTP = "http://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
+$MOZILLABUILD_FTP = "https://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
 $MOZILLABUILD_SETUP = "$DOWNLOADS\MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
 DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
 InstallBinary $MOZILLABUILD_SETUP
