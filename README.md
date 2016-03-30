@@ -38,6 +38,8 @@ import boto
 If there are no errors, then it is working properly.
 
 ## Changelog
+- [v0.5.1](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5.1) (2016-03-30)
+  - Bump MozillaBuild to 2.2.0 and Git to 2.7.4 to address security issues.
 - [v0.5](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5) (2016-03-26)
   - Bump MozillaBuild to 2.2.0pre3 and Git to 2.7.3
   - Add GitHub FuzzManager repository
