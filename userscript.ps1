@@ -150,7 +150,7 @@ DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
 ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
 Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" ([Environment]::GetFolderPath("ProgramFiles") + "\Debugging Tools for Windows (x64)\winext")
 
-# LLVM
+# LLVM (MSVC should be installed first)
 $LLVM_FTP = "http://llvm.org/releases/$LLVM_VERSION/LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
 $LLVM_FILE = "$DOWNLOADS\LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
 DownloadBinary $LLVM_FTP $LLVM_FILE
