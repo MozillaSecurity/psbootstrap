@@ -1,5 +1,4 @@
 <powershell>
-# Allow use of Write-Verbose
 [CmdletBinding()]
 Param()
 
@@ -53,29 +52,21 @@ Function DownloadBinary ($binName, $location) {
     # .DESCRIPTION
     # Downloads binaries.
     $wc = New-Object net.webclient  # Download prerequisites by not using Invoke-WebRequest (slow)
-    Write-Verbose "Downloading $binName ..."
     if (-not (Test-Path $location)) {
         $wc.Downloadfile($binName, $location)
-        Write-Verbose "Finished downloading to $location ."
-    } else {
-        Write-Verbose "$location already exists!"
     }
 }
 
 Function InstallBinary ($binName) {
     # .DESCRIPTION
     # Installs NSIS programs using the /S switch.
-    Write-Verbose "Installing $binName ..."
     & $binName /S | out-null
-    Write-Verbose "Finished installing $binName ."
 }
 
 Function ExtractArchive ($fileName, $dirName) {
     # .DESCRIPTION
     # Extracts archives using 7-Zip in mozilla-build directory.
-    Write-Verbose "Extracting $fileName ..."
     (C:\mozilla-build\7zip\7z.exe x -y -o"$dirName" $fileName) | out-null
-    Write-Verbose "Finished extracting $fileName ."
 }
 
 Function ConvertToUnicodeNoBOM ($fileName) {
@@ -87,7 +78,6 @@ Function ConvertToUnicodeNoBOM ($fileName) {
                                     (Get-Content $fileName), $Utf8NoBomEncoding)
 }
 
-Write-Verbose "Setting up configurations..."
 # Windows Registry settings
 # Disable the Windows Error Dialog
 Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting' -Name DontShowUI -Value 1 | out-null
@@ -164,24 +154,17 @@ InstallBinary $NOTEPADPP_FILE
 
 # Firefox Developer Edition (Aurora)
 DownloadBinary $FXDEV_ARCHIVE $FXDEV_FILE_WITH_DIR
-Write-Verbose "Installing $FXDEV_FILE_WITH_DIR ..."
 & $FXDEV_FILE_WITH_DIR -ms | out-null
-Write-Verbose "Finished installing $FXDEV_FILE_WITH_DIR ."
 
 # Git
 DownloadBinary $GIT_FTP $GIT_FILE_WITH_DIR
-Write-Verbose "Installing $GIT_FILE_WITH_DIR ..."
 & $GIT_FILE_WITH_DIR /SILENT | out-null
-Write-Verbose "Finished installing $GIT_FILE_WITH_DIR ."
 
-
-Write-Verbose "Setting up ssh configurations..."
 New-Item $SSH_DIR -type directory | out-null
 @import(keys/github.funfuzz.ps1)@
 New-Item "$SSH_DIR\config" -type file -value 'Host *
 StrictHostKeyChecking no
 ' | out-null
-Write-Verbose "Finished setting up ssh configurations."
 # Create a shortcut to C:\mozilla-build in Favorites. Adapted from http://stackoverflow.com/a/9701907
 $WshShell2 = New-Object -comObject WScript.Shell
 $Shortcut2 = $WshShell2.CreateShortcut("$MY_HOME\Links\mozilla-build.lnk")
@@ -203,27 +186,18 @@ cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_GENERIC_START" |
     % { $_ -replace ' --login -i', ' --login -c "pip install --upgrade boto numpy requests ; python -u ~/funfuzz/loopBot.py -b \"--random\" -t \"js\" --target-time 28800 | tee ~/log-loopBotPy.txt"' } |
     out-file $MOZILLABUILD_GENERIC_START_FULL_PATH -encoding utf8 |
     out-null
-Write-Verbose "Finished setting up configurations."
 # Step 2: Now convert the file generated in step 1 from Unicode with BOM to Unicode without BOM:
 ConvertToUnicodeNoBOM $MOZILLABUILD_START_SCRIPT_FULL_PATH
 ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
-Write-Verbose "Cloning lithium repository..."
 & $GIT_BINARY clone "https://github.com/nth10sd/lithium" "$MY_HOME\lithium" -b nbp-branch --single-branch | Out-Host
-Write-Verbose "Finished cloning lithium repository."
-Write-Verbose "Cloning funfuzz repository..."
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
-Write-Verbose "Finished cloning funfuzz repository."
-Write-Verbose "Cloning FuzzManager repository..."
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager" "$MY_HOME\FuzzManager" | Out-Host
-Write-Verbose "Finished cloning FuzzManager repository."
 @import(misc-funfuzz/location.ps1)@
 
-Write-Verbose "Unbundling mozilla-central..."
 New-Item $TREES -type directory | out-null
 & $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
 
-Write-Verbose "Commencing fuzzing."
 # Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
 
