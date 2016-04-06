@@ -13,6 +13,7 @@ $DOWNLOADS = "$MY_HOME\Downloads"
 $SSH_DIR = "$MY_HOME\.ssh"
 $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
+$ESR45_REPO = "$TREES\mozilla-esr45"
 
 # Versions
 $MOZILLABUILD_VERSION = "2.2.0"
@@ -197,6 +198,7 @@ ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
 New-Item $TREES -type directory | out-null
 & $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
+& $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-esr45/ $ESR45_REPO | out-null
 
 # Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
