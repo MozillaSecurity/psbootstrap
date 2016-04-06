@@ -191,9 +191,7 @@ $Shortcut2.Save()
 New-Item "$MY_HOME\.hgrc" -type file -value "[ui]
 merge = internal:merge
 ssh = $MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -C -v
-
-[hostfingerprints]
-hg.mozilla.org = af:27:b9:34:47:4e:e5:98:01:f6:83:2b:51:c9:aa:d8:df:fb:1a:27" | out-null
+" | out-null
 # Modifying custom mozilla-build script for running fuzzing.
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
 # See https://technet.microsoft.com/en-us/library/hh849882.aspx
