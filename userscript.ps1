@@ -45,9 +45,9 @@ $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_GENERIC_START = "start-shell.bat"
 $MOZILLABUILD_GENERIC_START_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_GENERIC_START"
 # For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
-# Remember to also tweak the LLVM version.
 $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
+# Remember to also tweak the LLVM arch.
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\python\Scripts\hg.bat"
 
