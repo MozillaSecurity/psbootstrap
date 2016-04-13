@@ -75,7 +75,7 @@ Function ExtractArchive ($fileName, $dirName) {
 Function ConvertToUnicodeNoBOM ($fileName) {
     # .DESCRIPTION
     # Converts files to Unicode without BOM.
-    # Adapted from http://stackoverflow.com/a/5596984
+    # Adapted from https://stackoverflow.com/a/5596984
     $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding($False)
     [System.IO.File]::WriteAllLines($fileName,
                                     (Get-Content $fileName), $Utf8NoBomEncoding)
@@ -88,14 +88,14 @@ Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\Windows Error Reporting
 New-Item -Path 'HKLM:\Software\Microsoft\Windows\Windows Error Reporting' -Name LocalDumps | out-null
 Set-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name DumpCount -Value 500 | out-null
 Set-ItemProperty -Path 'HKLM:\Software\Microsoft\Windows\Windows Error Reporting\LocalDumps' -Name DumpType -Value 1 | out-null
-# Get Group Policy Settings Reference from http://www.microsoft.com/en-us/download/details.aspx?id=25250
+# Get Group Policy Settings Reference from https://www.microsoft.com/en-us/download/details.aspx?id=25250
 # Disable Application Compatibility Engine and Program Compatibility Assistant
 New-Item -Path 'HKLM:\Software\Policies\Microsoft\Windows' -Name AppCompat | out-null
 Set-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\AppCompat' -Name DisableEngine -Value 1 | out-null
 Set-ItemProperty -Path 'HKLM:\Software\Policies\Microsoft\Windows\AppCompat' -Name DisablePCA -Value 1 | out-null
 & gpupdate /force | out-null
 
-# Create a shortcut to ~ in Favorites. Adapted from http://stackoverflow.com/a/9701907
+# Create a shortcut to ~ in Favorites. Adapted from https://stackoverflow.com/a/9701907
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$MY_HOME\Links\Administrator.lnk")
 $Shortcut.TargetPath = "$MY_HOME"
@@ -124,7 +124,7 @@ New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0
 & $VS2013COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
 
 # Standalone Debugging Tools for Windows as part of Windows 8.1 SDK
-$DEBUGGINGTOOLS_FTP = "http://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi"
+$DEBUGGINGTOOLS_FTP = "https://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi"
 $DEBUGGINGTOOLS_SETUP = "$DOWNLOADS\Debugging_Tools_for_Windows_(x64).msi"
 DownloadBinary $DEBUGGINGTOOLS_FTP $DEBUGGINGTOOLS_SETUP
 Start-Process "msiexec" "/i $DEBUGGINGTOOLS_SETUP /Passive /NoRestart" -NoNewWindow -Wait
@@ -136,7 +136,7 @@ DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
 InstallBinary $MOZILLABUILD_SETUP
 
 # !exploitable 1.6.0 (needs 7-zip to extract, from MozillaBuild)
-$B_EXPLOITABLE_FTP = "http://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=21031"
+$B_EXPLOITABLE_FTP = "https://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=21031"
 $B_EXPLOITABLE_SETUP_FILENAME = "MSECExtensions_1_6_0"
 $B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
 DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
@@ -150,7 +150,7 @@ DownloadBinary $LLVM_FTP $LLVM_FILE
 InstallBinary $LLVM_FILE
 
 # Notepad++ editor
-$NOTEPADPP_FTP = "http://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
+$NOTEPADPP_FTP = "https://notepad-plus-plus.org/repository/$NOTEPADPP_MAJOR_VER.x/$NOTEPADPP_VERSION/npp.$NOTEPADPP_VERSION.Installer.exe"
 $NOTEPADPP_FILE = "$DOWNLOADS\npp.$NOTEPADPP_VERSION.Installer.exe"
 DownloadBinary $NOTEPADPP_FTP $NOTEPADPP_FILE
 InstallBinary $NOTEPADPP_FILE
@@ -168,7 +168,7 @@ New-Item $SSH_DIR -type directory | out-null
 New-Item "$SSH_DIR\config" -type file -value 'Host *
 StrictHostKeyChecking no
 ' | out-null
-# Create a shortcut to C:\mozilla-build in Favorites. Adapted from http://stackoverflow.com/a/9701907
+# Create a shortcut to C:\mozilla-build in Favorites. Adapted from https://stackoverflow.com/a/9701907
 $WshShell2 = New-Object -comObject WScript.Shell
 $Shortcut2 = $WshShell2.CreateShortcut("$MY_HOME\Links\mozilla-build.lnk")
 $Shortcut2.TargetPath = "C:\mozilla-build"
