@@ -174,11 +174,6 @@ $WshShell2 = New-Object -comObject WScript.Shell
 $Shortcut2 = $WshShell2.CreateShortcut("$MY_HOME\Links\mozilla-build.lnk")
 $Shortcut2.TargetPath = "C:\mozilla-build"
 $Shortcut2.Save()
-# Mercurial settings
-New-Item "$MY_HOME\.hgrc" -type file -value "[ui]
-merge = internal:merge
-ssh = $MOZILLABUILD_INSTALLDIR\msys\bin\ssh.exe -C -v
-" | out-null
 # Modifying custom mozilla-build script for running fuzzing.
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
 # See https://technet.microsoft.com/en-us/library/hh849882.aspx
