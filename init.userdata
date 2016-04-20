@@ -18,7 +18,7 @@ Function GetFile ($fileName, $localDir) {
 $MY_HOME = "C:\Users\Administrator"
 $PSBOOTSTRAP = "$MY_HOME\Downloads\psbootstrap.ps1"
 # FIXME: Hardcode the version of psbootstrap used for now.
-$STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/fee767efff1deab0d8336c44af294e77f89aec03/psbootstrap.ps1"
+$STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/739945e/psbootstrap.ps1"
 
 # Get psbootstrap
 GetFile $STARTURL $PSBOOTSTRAP
