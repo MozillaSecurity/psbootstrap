@@ -1,0 +1,28 @@
+<powershell>
+
+# Only tested with Powershell V4
+#requires -version 4.0
+Set-StrictMode -Version Latest  # Helps to catch errors
+
+Function GetFile ($fileName, $localDir) {
+    # .DESCRIPTION
+    # Downloads binaries.
+    $wc = New-Object net.webclient  # Download by not using Invoke-WebRequest (slow)
+    if (-not (Test-Path $localDir)) {
+        $wc.Downloadfile($fileName, $localDir)
+    }
+}
+
+# Directories
+# $MY_HOME is needed because user-data starts up as SYSTEM user which is *not* Administrator.
+$MY_HOME = "C:\Users\Administrator"
+$PSBOOTSTRAP = "$MY_HOME\Downloads\psbootstrap.ps1"
+# FIXME: Hardcode the version of psbootstrap used for now.
+$STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/fee767efff1deab0d8336c44af294e77f89aec03/psbootstrap.ps1"
+
+# Get psbootstrap
+GetFile $STARTURL $PSBOOTSTRAP
+
+& $PSBOOTSTRAP
+
+</powershell>
