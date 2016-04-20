@@ -43,10 +43,10 @@ $GIT_BINARY = [Environment]::GetFolderPath("ProgramFilesX86") + "\Git\bin\git.ex
 $MOZILLABUILD_INSTALLDIR = "C:\mozilla-build"
 $MOZILLABUILD_GENERIC_START = "start-shell.bat"
 $MOZILLABUILD_GENERIC_START_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_GENERIC_START"
-# For 32-bit, use "start-shell-msvc2015.bat". For 64-bit, use "start-shell-msvc2015-x64.bat"
+# For 32-bit, use "start-shell-msvc2013.bat". For 64-bit, use "start-shell-msvc2013-x64.bat"
+$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
+#$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 # Remember to also tweak the LLVM arch.
-$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2015.bat"
-#$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2015-x64.bat"
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
 $PYTHON_BINARY = "$MOZILLABUILD_INSTALLDIR\python\python2.7.exe"
 $HG_BINARY = "$MOZILLABUILD_INSTALLDIR\python\Scripts\hg"
@@ -101,13 +101,27 @@ $Shortcut = $WshShell.CreateShortcut("$MY_HOME\Links\Administrator.lnk")
 $Shortcut.TargetPath = "$MY_HOME"
 $Shortcut.Save()
 
-# Microsoft Visual Studio 2015 Community Edition with Updates
-$VS2015COMMUNITY_FTP = "https://go.microsoft.com/fwlink/?LinkID=626924"
-$VS2015COMMUNITY_SETUP = "$DOWNLOADS\vs_community_ENU.exe"
-$VS2015COMMUNITY_SETUP_DEPLOYMENT = "$DOWNLOADS\AdminDeployment.xml"
-DownloadBinary $VS2015COMMUNITY_FTP $VS2015COMMUNITY_SETUP
-DownloadBinary https://gist.githubusercontent.com/nth10sd/970e782985f5a48fc240d2742c3aaa26/raw/ef6f5cfec8f83d15e23cdfad0f3073fe21bf69e8/msvc2015AdminDeployment-win2012R2.xml $VS2015COMMUNITY_SETUP_DEPLOYMENT
-& $VS2015COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2015COMMUNITY_SETUP_DEPLOYMENT | Write-Output
+# Microsoft Visual Studio 2013 Community Edition
+$VS2013COMMUNITY_FTP = "http://go.microsoft.com/?linkid=9863608"
+$VS2013COMMUNITY_SETUP = "$DOWNLOADS\vs_community.exe"
+$VS2013COMMUNITY_SETUP_DEPLOYMENT = "$DOWNLOADS\AdminDeployment.xml"
+DownloadBinary $VS2013COMMUNITY_FTP $VS2013COMMUNITY_SETUP
+New-Item $VS2013COMMUNITY_SETUP_DEPLOYMENT -type file -value '<?xml version="1.0" encoding="utf-8"?>
+<AdminDeploymentCustomizations xmlns="http://schemas.microsoft.com/wix/2011/AdminDeployment">
+    <BundleCustomizations TargetDir="default" NoWeb="default"/>
+
+    <SelectableItemCustomizations>
+        <SelectableItemCustomization Id="Blend" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="VC_MFC_Libraries" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="SQL" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="WebTools" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="SilverLight_Developer_Kit" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="Win8SDK" Hidden="no" Selected="no" />
+        <SelectableItemCustomization Id="WindowsPhone80" Hidden="no" Selected="no" />
+    </SelectableItemCustomizations>
+
+</AdminDeploymentCustomizations>' | out-null
+& $VS2013COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2013COMMUNITY_SETUP_DEPLOYMENT | Write-Output
 
 # Standalone Debugging Tools for Windows as part of Windows 8.1 SDK
 $DEBUGGINGTOOLS_FTP = "https://download.microsoft.com/download/A/6/A/A6AC035D-DA3F-4F0C-ADA4-37C8E5D34E3D/setup/WinSDKDebuggingTools_amd64/dbg_amd64.msi"
