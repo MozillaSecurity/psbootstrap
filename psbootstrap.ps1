@@ -164,7 +164,6 @@ DownloadBinary $GIT_FTP $GIT_FILE_WITH_DIR
 & $GIT_FILE_WITH_DIR /SILENT | out-null
 
 New-Item $SSH_DIR -type directory | out-null
-@import(keys/github.funfuzz.ps1)@
 New-Item "$SSH_DIR\config" -type file -value 'Host *
 StrictHostKeyChecking no
 ' | out-null
@@ -191,7 +190,6 @@ ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 & $GIT_BINARY clone "https://github.com/nth10sd/lithium" "$MY_HOME\lithium" -b nbp-branch --single-branch | Out-Host
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
 & $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager" "$MY_HOME\FuzzManager" | Out-Host
-@import(misc-funfuzz/location.ps1)@
 
 New-Item $TREES -type directory | out-null
 & $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
