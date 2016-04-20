@@ -49,7 +49,8 @@ $MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013.bat"
 #$MOZILLABUILD_START_SCRIPT = "start-shell-msvc2013-x64.bat"
 # Remember to also tweak the LLVM arch.
 $MOZILLABUILD_START_SCRIPT_FULL_PATH = "$MOZILLABUILD_INSTALLDIR\fz-$MOZILLABUILD_START_SCRIPT"
-$HG_BINARY = "$MOZILLABUILD_INSTALLDIR\python\Scripts\hg.bat"
+$PYTHON_BINARY = "$MOZILLABUILD_INSTALLDIR\python\python2.7.exe"
+$HG_BINARY = "$MOZILLABUILD_INSTALLDIR\python\Scripts\hg"
 
 Function DownloadBinary ($binName, $location) {
     # .DESCRIPTION
@@ -199,10 +200,10 @@ ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 @import(misc-funfuzz/location.ps1)@
 
 New-Item $TREES -type directory | out-null
-& $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
-& $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-aurora/ $AURORA_REPO | out-null
-& $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-beta/ $BETA_REPO | out-null
-& $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-esr45/ $ESR45_REPO | out-null
+& $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
+& $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-aurora/ $AURORA_REPO | out-null
+& $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-beta/ $BETA_REPO | out-null
+& $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-esr45/ $ESR45_REPO | out-null
 
 # Only for certain machines: & schtasks.exe /create /ru Administrators /sc onlogon /delay 0000:01 /tr $MOZILLABUILD_START_SCRIPT_FULL_PATH /tn jsFuzzing
 & $MOZILLABUILD_START_SCRIPT_FULL_PATH | Write-Output
