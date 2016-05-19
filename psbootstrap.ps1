@@ -13,7 +13,6 @@ $SSH_DIR = "$MY_HOME\.ssh"
 $TREES = "$MY_HOME\trees"
 $MC_REPO = "$TREES\mozilla-central"
 $AURORA_REPO = "$TREES\mozilla-aurora"
-$BETA_REPO = "$TREES\mozilla-beta"
 $ESR45_REPO = "$TREES\mozilla-esr45"
 
 # Versions
