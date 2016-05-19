@@ -105,7 +105,7 @@ $VS2015COMMUNITY_FTP = "https://go.microsoft.com/fwlink/?LinkID=626924"
 $VS2015COMMUNITY_SETUP = "$DOWNLOADS\vs_community_ENU.exe"
 $VS2015COMMUNITY_SETUP_DEPLOYMENT = "$DOWNLOADS\AdminDeployment.xml"
 DownloadBinary $VS2015COMMUNITY_FTP $VS2015COMMUNITY_SETUP
-DownloadBinary https://gist.githubusercontent.com/nth10sd/970e782985f5a48fc240d2742c3aaa26/raw/ef6f5cfec8f83d15e23cdfad0f3073fe21bf69e8/msvc2015AdminDeployment-win2012R2.xml $VS2015COMMUNITY_SETUP_DEPLOYMENT
+DownloadBinary https://gist.githubusercontent.com/nth10sd/970e782985f5a48fc240d2742c3aaa26/raw/4ed73523208384f19b6ace0eba3d01f67145ea50/msvc2015AdminDeployment-win2012R2.xml $VS2015COMMUNITY_SETUP_DEPLOYMENT
 & $VS2015COMMUNITY_SETUP /Passive /NoRestart /AdminFile $VS2015COMMUNITY_SETUP_DEPLOYMENT | Write-Output
 
 # Standalone Debugging Tools for Windows as part of Windows 8.1 SDK
