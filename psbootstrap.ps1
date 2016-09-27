@@ -119,14 +119,6 @@ $MOZILLABUILD_SETUP = "$DOWNLOADS\MozillaBuildSetup-$MOZILLABUILD_VERSION.exe"
 DownloadBinary $MOZILLABUILD_FTP $MOZILLABUILD_SETUP
 InstallBinary $MOZILLABUILD_SETUP
 
-# !exploitable 1.6.0 (needs 7-zip to extract, from MozillaBuild)
-$B_EXPLOITABLE_FTP = "https://download-codeplex.sec.s-msft.com/Download/Release?ProjectName=msecdbg&DownloadId=671417&FileTime=130119256185830000&Build=21031"
-$B_EXPLOITABLE_SETUP_FILENAME = "MSECExtensions_1_6_0"
-$B_EXPLOITABLE_FILE = "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME.zip"
-DownloadBinary $B_EXPLOITABLE_FTP $B_EXPLOITABLE_FILE
-ExtractArchive $B_EXPLOITABLE_FILE "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME"
-Copy-Item "$DOWNLOADS\$B_EXPLOITABLE_SETUP_FILENAME\x64\Release\*" ([Environment]::GetFolderPath("ProgramFiles") + "\Debugging Tools for Windows (x64)\winext")
-
 # LLVM (MSVC should be installed first)
 $LLVM_FTP = "http://llvm.org/releases/$LLVM_VERSION/LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
 $LLVM_FILE = "$DOWNLOADS\LLVM-$LLVM_VERSION-win$LLVM_ARCH.exe"
