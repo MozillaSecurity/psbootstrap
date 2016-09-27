@@ -164,7 +164,7 @@ $Shortcut2.Save()
 # Step 1: -encoding utf8 is needed for out-file for the batch file to be run properly.
 # See https://technet.microsoft.com/en-us/library/hh849882.aspx
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_START_SCRIPT" |
-    % { $_ -replace 'CALL start-shell.bat', 'CALL fz-start-shell.bat' } |
+    % { $_ -replace "CALL $MOZILLABUILD_GENERIC_START", "CALL fz-$MOZILLABUILD_GENERIC_START" } |
     out-file $MOZILLABUILD_START_SCRIPT_FULL_PATH -encoding utf8 |
     out-null
 cat "$MOZILLABUILD_INSTALLDIR\$MOZILLABUILD_GENERIC_START" |
