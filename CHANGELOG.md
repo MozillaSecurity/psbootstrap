@@ -1,4 +1,13 @@
 ## Changelog
+- [v0.6](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.6) (2016-09-27)
+  - Bootstrapping now takes 45 mins in an m4.4xlarge instance
+  - Split up psbootstrap into init.userdata and psbootstrap.ps1 files
+  - Fuzz mozilla-aurora in addition to mozilla-central
+  - Clone mozilla repos directly instead of using bundles, since cloning is a lot faster
+  - Call the hg python script directly using Python in MozillaBuild 2.2.0 as hg.bat no longer exists
+  - Install FuzzManager requirements using its requirements.txt file instead of hardcoding
+  - !exploitable does not support Win10, so switch to using !analyze
+  - Various package version bumps (Dev Edition to 51, LLVM to 3.9.0, Git to 2.10.0)
 - [v0.5.1](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5.1) (2016-03-30)
   - Bump MozillaBuild to 2.2.0 and Git to 2.7.4 to address security issues.
 - [v0.5](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5) (2016-03-26)
