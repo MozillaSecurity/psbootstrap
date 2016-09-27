@@ -177,4 +177,4 @@ ConvertToUnicodeNoBOM $MOZILLABUILD_GENERIC_START_FULL_PATH
 
 New-Item $TREES -type directory | out-null
 & $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/mozilla-central $MC_REPO | out-null
-# & $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-aurora/ $AURORA_REPO | out-null
+& $PYTHON_BINARY -u $HG_BINARY --cwd $TREES clone https://hg.mozilla.org/releases/mozilla-aurora/ $AURORA_REPO | out-null
