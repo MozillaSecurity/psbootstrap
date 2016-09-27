@@ -5,7 +5,7 @@ psbootstrap assists in creating files needed to bootstrap a Windows machine for 
 Run psbootstrap using Laniakea:
 
 ```
-# ~/trees/boto-awsfuzz/bin/python -u laniakea.py -region=us-east-1 -images <your images.json> -create-on-demand -tags Name=<your tag> -image-name <your image name> -ebs-volume-delete-on-termination -ebs-size 768 -userdata init.userdata
+# ~/trees/boto-awsfuzz/bin/python -u laniakea.py -region=us-east-1 -images <your images.json> -create-on-demand -tags Name=<your tag> -image-name <your image name> -ebs-volume-delete-on-termination -ebs-size 192 -userdata init.userdata
 ```
 in the psbootstrap directory.
 
