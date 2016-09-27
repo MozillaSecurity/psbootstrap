@@ -36,29 +36,3 @@ import boto
 ```
 
 If there are no errors, then it is working properly.
-
-## Changelog
-- [v0.5.1](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5.1) (2016-03-30)
-  - Bump MozillaBuild to 2.2.0 and Git to 2.7.4 to address security issues.
-- [v0.5](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.5) (2016-03-26)
-  - Bump MozillaBuild to 2.2.0pre3 and Git to 2.7.3
-  - Add GitHub FuzzManager repository
-  - Switch to archive.mozilla.org from TaskCluster and FTP
-  - Download and install LLVM 3.8.0 32-bit
-- [v0.4](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.4) (2015-09-28)
-  - Now intended to be used with Laniakea
-  - MozillaBuild 2.0.0 support added together with Git 2.5.3
-  - Switched to GitHub Lithium and funfuzz repositories
-  - Updated program versions and other fixes
-  - *(Custom configuration was planned for this release, then pushed out)*
-- [v0.3](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.3) (2015-04-23)
-  - Rudimentary 64-bit MozillaBuild script support
-  - Stop using Windows Task Scheduler
-  - Install Debugging Tools for Windows, e.g. cdb.exe and windbg
-  - Miscellaneous bug fixes
-- [v0.2](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.2) (2015-04-13)
-  - First working release
-  - JavaScript fuzzing automatically commences after 1.5 hours of bootstrapping
-- [v0.1](https://github.com/MozillaSecurity/psbootstrap/releases/tag/v0.1) (2015-03-19)
-  - Initial release
-  - Rudimentary support of downloading and installing prerequisites
