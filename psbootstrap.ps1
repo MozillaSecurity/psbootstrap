@@ -139,9 +139,9 @@ DownloadBinary $FXDEV_ARCHIVE $FXDEV_FILE_WITH_DIR
 DownloadBinary $GIT_FTP $GIT_FILE_WITH_DIR
 & $GIT_FILE_WITH_DIR /SILENT | out-null
 
-& $GIT_BINARY clone "https://github.com/MozillaSecurity/lithium.git" "$MY_HOME\lithium" | Out-Host
-& $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | Out-Host
-& $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager" "$MY_HOME\FuzzManager" | Out-Host
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/lithium.git" "$MY_HOME\lithium" | out-null
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/funfuzz" "$MY_HOME\funfuzz" | out-null
+& $GIT_BINARY clone "https://github.com/MozillaSecurity/FuzzManager" "$MY_HOME\FuzzManager" | out-null
 
 New-Item $SSH_DIR -type directory | out-null
 New-Item "$SSH_DIR\config" -type file -value 'Host *
