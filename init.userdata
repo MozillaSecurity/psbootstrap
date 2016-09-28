@@ -28,7 +28,7 @@ $STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/75b02
 # Get psbootstrap
 GetFile $STARTURL $PSBOOTSTRAP
 
-& $PSBOOTSTRAP
+& $PSBOOTSTRAP | out-host
 
 # Populate FuzzManager settings
 @import(userdata/misc-funfuzz/fmsettings.sh)@
