@@ -23,7 +23,7 @@ $MY_HOME = "C:\Users\Administrator"
 $PSBOOTSTRAP = "$MY_HOME\Downloads\psbootstrap.ps1"
 # FIXME: Hardcode the version of psbootstrap used for now.
 # Note that this will fixate the architecture of LLVM in this revision.
-$STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/75b0274/psbootstrap.ps1"
+$STARTURL = "https://raw.githubusercontent.com/MozillaSecurity/psbootstrap/92e1537/psbootstrap.ps1"
 
 # Get psbootstrap
 GetFile $STARTURL $PSBOOTSTRAP
