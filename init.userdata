@@ -1,7 +1,7 @@
 <powershell>
 # How to generate AMI
 # Run from psbootstrap dir to pick up the correct fmsettings.sh file:
-# # ~/trees/boto-awsfuzz/bin/python -u ~/trees/laniakea/laniakea.py -region=us-east-1 -images ~/Downloads/images.json -create-on-demand -tags Name=jsfunfuzz-win-s3-ondemand-2-x32 -image-name winfunfuzz-ondemand -ebs-volume-delete-on-termination -ebs-size 98 -userdata ~/trees/psbootstrap/init.userdata
+# ~/trees/boto-awsfuzz/bin/python -u ~/trees/laniakea/laniakea.py -region=us-east-1 -images ~/Downloads/images.json -create-on-demand -tags Name=jsfunfuzz-win-s3-ondemand-2-x32 -image-name winfunfuzz-ondemand -ebs-volume-delete-on-termination -ebs-size 98 -userdata ~/trees/psbootstrap/init.userdata
 # Stop the instance, create an AMI, copy the AMI, then update EC2SpotManager
 
 # Only tested with Powershell V4
