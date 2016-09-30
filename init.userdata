@@ -31,6 +31,6 @@ GetFile $STARTURL $PSBOOTSTRAP
 & $PSBOOTSTRAP | out-host
 
 # Populate FuzzManager settings
-@import(userdata/misc-funfuzz/fmsettings.sh)@
+@import(userdata/misc-funfuzz/fmsettings.ps1)@
 
 </powershell>
